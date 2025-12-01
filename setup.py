@@ -27,7 +27,10 @@ def create_file_if_not_exists(file_name, lines=None):
         print("... bestand " + file_name + " gemaakt [mode=755].")
     else:
         print("... bestand {} bestaat al.".format(file_name))
-    repo.git.add(file_name)
+
+    # i've excluded example and input files from git add
+    if "input" not in os.path.basename(file_name) and "example" not in os.path.basename(file_name):
+        repo.git.add(file_name)
 
 current_folder = sys.path[0]
 repo = Repo(current_folder)
